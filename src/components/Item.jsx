@@ -1,13 +1,9 @@
-import { useState } from "react";
 import Button from "./Button";
 import { FaTrash } from "react-icons/fa";
 
 const Item = (props) => {
-  const [done, setDone] = useState(false);
-
-  const deleteItem = (index) => {
-    const copy = [...props.list];
-    copy.splice(index, 1);
+  const deleteItem = (id) => {
+    const copy = props.list.fiter((el) => el.id !== id);
     props.setList(copy);
   };
 
@@ -17,16 +13,22 @@ const Item = (props) => {
         type="checkbox"
         id={props.id}
         value={props.value}
-        onClick={() => setDone(!done)}
+        onClick={() => {
+          const copy = [...props.list];
+          const item = copy.find((el) => el.id === props.id);
+          if (item) {
+            item.isDone = !item.isDone;
+            props.setList(copy);
+          }
+        }}
       />
-      <label htmlFor={props.id} className={done ? "done" : ""}>
+      <label htmlFor={props.id} className={props.isDone ? "done" : ""}>
         {props.value}
       </label>
       <Button
         className="bin-btn"
         text={<FaTrash />}
-        onClick={() => deleteItem(props.index)}
-        list={props.list}
+        onClick={() => deleteItem(props.id)}
       />
     </div>
   );

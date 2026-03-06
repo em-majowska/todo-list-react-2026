@@ -27,7 +27,7 @@ header {
 h1 {
   font-size: 48px;
 }
-.container {
+main.container {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -41,7 +41,7 @@ main {
   font-size: 1.375rem;
 }
 
-.top {
+.tasks {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -64,9 +64,11 @@ main {
     border-radius: 5px;
     border: 2px solid #555;
   }
-  input[type="checkbox"]:checked {
+
+  .item:has(.done) input {
     background: #5c48d3;
   }
+
   label.done {
     text-decoration: line-through;
   }
@@ -79,7 +81,7 @@ main {
   }
 }
 
-.bottom {
+.middle {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -88,7 +90,7 @@ main {
   flex-wrap: wrap;
 }
 
-.bottom input {
+.middle input {
   flex: 1;
   padding: 0.5em 0.75em;
   border-radius: 10px;
@@ -96,7 +98,7 @@ main {
   background-color: #f2f7fd;
 }
 
-.bottom button {
+.middle button {
   min-width: max-content;
   background-color: #5c48d3;
   color: white;
@@ -105,7 +107,7 @@ main {
   border: 1px solid transparent;
 }
 
-.bottom button:hover {
+.middle button:hover {
   background-color: #fff;
   color: #5c48d3;
   border: 1px solid #5c48d3;
