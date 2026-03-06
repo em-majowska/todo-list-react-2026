@@ -1,5 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
+.dark {
+  background-color: #282c34;
+  color: white;
+
+  footer,
+  a {
+    color: white;
+  }
+  .middle input {
+    background-color: #33373e;
+    color: white;
+  }
+  .mode-btn svg {
+    color: white;
+  }
+}
+
 body {
   font-family: "Montserrat", sans-serif;
 }
@@ -21,6 +38,15 @@ header {
   }
   svg {
     min-width: min-content;
+  }
+}
+
+.mode-btn {
+  margin-inline: auto 0;
+
+  svg {
+    font-size: 40px;
+    color: #5c48d3;
   }
 }
 
@@ -118,6 +144,7 @@ footer {
   padding-bottom: 140px;
   text-align: center;
   color: #5c48d3;
+
   span,
   a {
     font-weight: bold;

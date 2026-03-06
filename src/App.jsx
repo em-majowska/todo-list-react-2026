@@ -4,6 +4,7 @@ import Input from "./components/Input";
 import Button from "./components/Button";
 import { useState } from "react";
 import Item from "./components/Item";
+import { FaLightbulb, FaRegLightbulb } from "react-icons/fa";
 
 function App() {
   const [task, setTask] = useState("haha");
