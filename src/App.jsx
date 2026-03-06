@@ -8,7 +8,6 @@ import Item from "./components/Item";
 function App() {
   const [task, setTask] = useState("haha");
   const [list, setList] = useState([]);
-  // TODO Ajouter un bouton permettant de passer d'un "light mode" à un "dark mode" (à vous de choisir les couleurs du dark mode)
 
   return (
     <>
@@ -18,8 +17,8 @@ function App() {
         {list.length > 0 && (
           <div className="tasks">
             {list
-              .filter((el) => el.name.includes(task))
               .filter((el) => !el.isDone)
+              .filter((el) => el.name.includes(task))
               .map((item, index) => {
                 return (
                   <Item

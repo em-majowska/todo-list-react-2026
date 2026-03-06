@@ -3,7 +3,7 @@ import { FaTrash } from "react-icons/fa";
 
 const Item = (props) => {
   const deleteItem = (id) => {
-    const copy = props.list.fiter((el) => el.id !== id);
+    const copy = props.list.filter((el) => el.id !== id);
     props.setList(copy);
   };
 
