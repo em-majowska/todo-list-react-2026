@@ -2,18 +2,51 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Input from "./components/Input";
 import Button from "./components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Item from "./components/Item";
 import { FaLightbulb, FaRegLightbulb } from "react-icons/fa";
+import axios from "axios";
 
 function App() {
-  const [task, setTask] = useState("haha");
+  const [task, setTask] = useState("");
   const [list, setList] = useState([]);
   const [darkMode, setDarkMode] = useState(false);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/todo");
+        setList(response.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!task) return;
+    // create task
+    const newTask = { name: task, isDone: false };
+    // send to DB and update list state
+    try {
+      const response = await axios.post("http://localhost:3000/todo", newTask);
+      const createdTask = response.data;
+
+      setList((prev) => [...prev, createdTask]);
+    } catch (error) {
+      console.log(error.message);
+    }
+    // reset form and `search` value
+    event.target.reset();
+    setTask("");
+  };
+
   return (
     <>
-      <div className={darkMode && "dark"}>
+      {/* parent div responsible for light / dark mode */}
+      <div className={darkMode ? "dark" : ""}>
         <Header
           text="Todo List"
           btnIcon={darkMode ? <FaRegLightbulb /> : <FaLightbulb />}
@@ -24,13 +57,16 @@ function App() {
           {list.length > 0 && (
             <div className="tasks">
               {list
-                .filter((el) => !el.isDone)
-                .filter((el) => el.name.includes(task))
-                .map((item, index) => {
+                // sort by isDone
+                .filter((item) => !item.isDone)
+                // search while typing
+                .filter((item) => item.name.includes(task))
+                // populate with tasks
+                .map((item) => {
                   return (
                     <Item
-                      key={`${index} ${item.name}`}
-                      id={item.id}
+                      key={item._id}
+                      id={item._id}
                       value={item.name}
                       list={list}
                       setList={setList}
@@ -40,24 +76,10 @@ function App() {
                 })}
             </div>
           )}
-          <form
-            className="middle"
-            onSubmit={(event) => {
-              event.preventDefault();
-              if (!task) return;
-              const copy = [
-                ...list,
-                { name: task, isDone: false, id: Date.now() },
-              ];
-              event.target.reset();
-              setTask("");
-              setList(copy);
-            }}>
+          <form className="middle" onSubmit={() => handleSubmit(event)}>
             <Input
               value={task}
-              onChange={(event) => {
-                setTask(event.target.value);
-              }}
+              onChange={(event) => setTask(event.target.value)}
             />
             <Button text="Add task" />
           </form>
@@ -65,12 +87,12 @@ function App() {
           {list.length > 0 && (
             <div className="tasks">
               {list
-                .filter((el) => el.isDone)
-                .map((item, index) => {
+                .filter((item) => item.isDone)
+                .map((item) => {
                   return (
                     <Item
-                      key={`${index}${item.name}`}
-                      id={item.id}
+                      key={item._id}
+                      id={item._id}
                       value={item.name}
                       list={list}
                       setList={setList}

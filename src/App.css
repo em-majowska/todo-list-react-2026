@@ -4,8 +4,8 @@
   background-color: #282c34;
   color: white;
 
-  footer,
-  a {
+  footer p,
+  footer a {
     color: white;
   }
   .middle input {
@@ -15,8 +15,22 @@
   .mode-btn svg {
     color: white;
   }
-}
 
+  .middle button:hover {
+    background-color: rgb(230, 228, 241);
+  }
+
+  ::placeholder,
+  ::-webkit-input-placeholder,
+  ::-ms-input-placeholder {
+    color: white;
+  }
+}
+* {
+  transition-property: color background-color border;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+}
 body {
   font-family: "Montserrat", sans-serif;
 }
@@ -35,6 +49,9 @@ header {
     display: flex;
     align-items: center;
     gap: 40px;
+  }
+  button {
+    padding: 1em 0.75em;
   }
   svg {
     min-width: min-content;
@@ -143,7 +160,10 @@ footer {
   margin-block-start: 20px;
   padding-bottom: 140px;
   text-align: center;
-  color: #5c48d3;
+  p,
+  a {
+    color: #5c48d3;
+  }
 
   span,
   a {
