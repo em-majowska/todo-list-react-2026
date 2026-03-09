@@ -27,6 +27,11 @@ function App() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!task) return;
+    const alreadyExists = list.find((element) => element.name === task);
+    if (alreadyExists) {
+      alert("Task already exists.");
+      return;
+    }
     // create task
     const newTask = { name: task, isDone: false };
     // send to DB and update list state
